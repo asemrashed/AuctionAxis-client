@@ -1,0 +1,11 @@
+#nav a:hover{
+    border-bottom: 2px solid var(--color-purple-500);
+    color: var(--color-purple-500)
+}
+#nav a.active{
+    border-bottom: 2px solid var(--color-purple-500);
+    color: var(--color-purple-500)
+}
+#nav a{
+    border-radius: 0;
+}
