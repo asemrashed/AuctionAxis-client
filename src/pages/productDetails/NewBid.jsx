@@ -18,13 +18,12 @@ const NewBid = ({ modalRef}) => {
     );
   }
 
-  const { displayName, email, photoURL } = user;
 
   const handleSubmit = e => {
     e.preventDefault();
-    const buyer_name = displayName;
-    const buyer_email = email;
-    const buyer_image = photoURL;
+    const buyer_name = e.target.name.value;
+    const buyer_email = e.target.email.value;
+    const buyer_image = e.target.imgUrl.value;
     const bid_price = e.target.price.value;
     const buyer_contact = e.target.contact.value;
     const productId = _id;
@@ -76,7 +75,7 @@ const NewBid = ({ modalRef}) => {
             type="name"
             className="input w-full mb-2"
             readOnly
-            defaultValue={displayName}
+            defaultValue={user?.displayName}
           />
           <label className="label">Email</label>
           <input
@@ -84,11 +83,11 @@ const NewBid = ({ modalRef}) => {
             type="email"
             className="input w-full mb-2"
             readOnly
-            defaultValue={email}
+            defaultValue={user?.email}
           />
           <div className="flex items-center justify-between gap-2 md:gap-4">
             <img
-              src={photoURL}
+              src={user?.photoURL}
               alt="buyer"
               className="w-14 h-14 rounded-full bg-gray-200 border border-gray-400"
             />
@@ -99,7 +98,7 @@ const NewBid = ({ modalRef}) => {
                 type="text"
                 className="input w-full mb-2"
                 readOnly
-                defaultValue={photoURL}
+                defaultValue={user?.photoURL}
               />
             </div>
           </div>
@@ -116,7 +115,7 @@ const NewBid = ({ modalRef}) => {
             name="contact"
             type="number"
             className="input w-full mb-2"
-            placeholder="+098 765 432 111"
+            defaultValue={user?.contact || '+880'}
             required
           />
 

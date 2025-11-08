@@ -3,24 +3,24 @@ import Swal from 'sweetalert2'
 import { useEffect } from "react";
 import { useState } from "react";
 import { Link } from "react-router";
+import { use } from "react";
+import { AuthContext } from "../../context/AuthContext";
+import useAxios from "../../hooks/useAxios";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
 
 const MyBidsCard = ({ bid, bids, setBids, index }) => {
-  const [loading, setLoading] = useState(false)
+  const {loading }= use(AuthContext)
   const [product, setProduct] = useState([])
   const {productId} = bid
+  const axios = useAxios()
+  const secureAxios = useAxiosSecure()
   useEffect(()=>{
-    setLoading(true)
-    fetch(`http://localhost:5000/products/${productId}`)
-    .then(res => res.json())
-    .then(data =>{
-      setProduct(data)
-      setLoading(false)
+    axios.get(`/products/${productId}`)
+    .then(res =>{
+      setProduct(res.data)
     })
-    .catch(err => {
-      console.log(err)
-      setLoading(false)
-    })
-  },[productId])
+  },[productId, axios])
+  
   if(loading){
     return (
       "Loading", (<span className="loading loading-spinner loading-xl"></span>)
@@ -38,12 +38,9 @@ const MyBidsCard = ({ bid, bids, setBids, index }) => {
       confirmButtonText: "Yes, delete it!"
     }).then((result) => {
       if (result.isConfirmed) {
-    fetch(`http://localhost:5000/bids/${bid._id}`,{
-          method:"DELETE",
-        })
-          .then(res => res.json())
-          .then(data =>{
-            if(data.deletedCount){
+    secureAxios.delete(`/bids/${bid._id}`)
+          .then(res =>{
+            if(res.data.deletedCount){
               Swal.fire({
                 title: "Deleted!",
                 text: "Your file has been deleted.",
@@ -52,9 +49,6 @@ const MyBidsCard = ({ bid, bids, setBids, index }) => {
               const currBids = bids.filter(b => b._id !== bid._id)
               setBids(currBids)
             }
-          })
-          .catch(err =>{
-            console.log(err)
           })
         console.log('Bid deleted')
       }
@@ -108,7 +102,7 @@ const MyBidsCard = ({ bid, bids, setBids, index }) => {
 
       {/* Row 3 - Remove Button */}
       <div className="flex justify-end md:justify-start order-6 md:order-6">
-        <button onClick={handleDelete} className="reject-btn cursor-pointer rounded border border-red-400 text-red-400 px-3 py-1 text-sm hover:bg-red-50 transition">
+        <button onClick={handleDelete} className="btn btn-sm md:btn-md btn-outline btn-error rounded hover:text-white border px-3 py-1 transition">
           Remove Bid
         </button>
       </div>

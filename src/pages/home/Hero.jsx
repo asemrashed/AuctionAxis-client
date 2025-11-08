@@ -57,9 +57,9 @@ export default function HeroSection() {
           <Link to={'/products'} className="px-6 py-3 rounded-full primary-btn transition">
             Watch All Products
           </Link>
-          <button className="px-6 py-3 rounded-full outlined-btn transition">
+          <Link to={'/createProduct'} className="px-6 py-3 rounded-full outlined-btn transition">
             Post an Product
-          </button>
+          </Link>
         </div>
       </div>
     </section>

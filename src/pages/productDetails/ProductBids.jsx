@@ -1,9 +1,18 @@
 import React, { use } from 'react';
 import BidsCard from '../../components/bidCards/BidsCard';
 import { BidContext } from '../../context/bidContext';
+import useAuth from '../../hooks/useAuth';
 
 const ProductBids = () => {
-  const {bids} = use(BidContext)
+  const {bids, product} = use(BidContext)
+  const {user, loading} = useAuth()
+  if(loading){
+    return (
+        <div className="text-2xl text-primary font-semibold flex items-center justify-center gap-5 w-full h-[50vh] bg-white">Loading<span className="loading loading-primary loading-spinner loading-xl"></span></div>
+    );
+  }
+  const seller = product?.email === user?.email
+  console.log(bids)
   return (
     <div className="max-w-[1440px] mx-auto my-10">
       <h2 className="text-2xl md:text-4xl font-bold text-gray-900 mb-5">
@@ -15,12 +24,12 @@ const ProductBids = () => {
 
       <div className="bg-white rounded-lg overflow-hidden w-full">
         {/* Header */}
-        <div className="hidden md:grid grid-cols-[60px_2fr_2fr_1fr_1.5fr] items-center px-4 py-3 bg-gray-100 font-semibold text-gray-600 text-sm">
+        <div className={`hidden md:${bids.length>0? 'grid':'hidden'} ${seller? 'md:grid-cols-[60px_2fr_2fr_1fr_1.5fr]':'md:grid-cols-[60px_2fr_2fr_1fr]'} items-center px-4 py-3 bg-gray-100 font-semibold text-gray-600 text-sm`}>
           <span>SL No</span>
           <span>Product</span>
-          <span>Seller</span>
+          <span>Bidder</span>
           <span>Bid Price</span>
-          <span>Actions</span>
+          {seller && (<span>Actions</span>)}
         </div>
 
         {/* Body */}

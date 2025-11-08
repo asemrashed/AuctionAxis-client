@@ -1,44 +1,30 @@
 import React, { use } from "react";
 import { BidContext } from "../../context/bidContext";
+import useAuth from "../../hooks/useAuth";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
 
 const BidsCard = ({ bid, index }) => {
-  const {product} = use(BidContext);
-
+  const secureAxios = useAxiosSecure()
+  const {user} = useAuth()
+  const {product, setProduct, setBids} = use(BidContext);
+  const seller = product?.email === user.email
   const handleAcceptBid =()=>{
     if(product.status !== 'sold'){
-      fetch(`http://localhost:5000/products/${product._id}`,{
-        method:"PATCH",
-        headers:{
-          "content-type":"application/json"
-        },
-        body: JSON.stringify({status: "sold"})
-      })
-        .then(res => res.json())
-        .then(data => {
-          console.log(data)
-        })
-        .catch(err =>{
-          console.log(err)
+      secureAxios.patch(`/products/${product._id}`,{status: "sold"})
+        .then(res => {
+          console.log(res.data)
+          setProduct(prev => ({ ...prev, status: "sold" }))
         })
         // updating bid status
-      fetch(`http://localhost:5000/bids/${bid._id}`,{
-        method:"PATCH",
-        headers:{
-          'content-type':'application/json'
-        },
-        body: JSON.stringify({status: 'approved'})
-      })
-        .then(res => res.json())
-        .then(data => {
-          console.log(data)
-        })
-        .catch(err =>{
-          console.log(err)
+      secureAxios.patch(`/bids/${bid._id}`,{status: 'approved'})
+        .then(res => {
+          console.log(res.data)
+          setBids(prev=> prev.map(p => p._id === bid._id? {...p, status:"approved"}:p ))
         })
     }
   }
   return (
-    <div className="grid md:grid-cols-[60px_2fr_2fr_1fr_1.5fr] grid-cols-2 md:items-center items-start border-b border-gray-200 px-4 py-3 hover:bg-gray-50 transition">
+    <div className={`grid ${seller? 'md:grid-cols-[60px_2fr_2fr_1fr_1.5fr]':'md:grid-cols-[60px_2fr_2fr_1fr]'} grid-cols-2 md:items-center items-start border-b border-gray-200 px-4 py-3 hover:bg-gray-50 transition`}>
       {/* Serial */}
       <span className="font-semibold my-auto order-1 text-gray-700">{index}.</span>
 
@@ -70,9 +56,10 @@ const BidsCard = ({ bid, index }) => {
     <span className="font-bold text-right md:text-left order-2 md:order-4 text-gray-900 mt-2 md:mt-0">$ {bid.bid_price}</span>
 
       {/* Actions */}
-      <div className="flex col-span-2 md:col-span-1 order-5 gap-2 mt-3 md:mt-0">
+    {seller && (
+            <div className="flex col-span-2 md:col-span-1 order-5 gap-2 mt-3 md:mt-0">
         {bid.status === 'approved'? 
-          <p className="text-primary font-semibold text-base md:text-lg bg-purple-300 w-full px-3 py-2 rounded-full text-center">sold to {bid.buyer_name}</p>:
+          <p className="text-primary font-semibold text-base md:text-lg bg-purple-300 w-full px-3 py-2 rounded-xl text-center">sold to {bid.buyer_name}</p>:
           <>
           <button onClick={handleAcceptBid} className="accept-btn w-full  cursor-pointer rounded border border-green-500 text-green-500 px-3 py-1 text-sm hover:bg-green-50 transition">
           Accept Offer
@@ -83,6 +70,7 @@ const BidsCard = ({ bid, index }) => {
         </>
         }
       </div>
+    )}
     </div>
   );
 };

@@ -16,7 +16,7 @@ export default function ProductDetails({ product }) {
             <img
               src={product.image}
               alt={product.title}
-              className="max-h-full max-w-full object-contain rounded-lg"
+              className="h-full w-full object-cover rounded-lg"
             />
           ) : (
             <div className="bg-gray-300 w-full h-full rounded-lg" />
@@ -96,10 +96,10 @@ export default function ProductDetails({ product }) {
           <p className="text-gray-700 font-semibold md:text-base mb-2">
             <span className="font-bold">Product ID:</span> {product._id}
           </p>
-          <p className="text-gray-700 font-semibold md:text-base">
+          {/* <p className="text-gray-700 font-semibold md:text-base">
             <span className="font-bold">Posted:</span>{" "}
             {new Date(product.created_at).toLocaleDateString()}
-          </p>
+          </p> */}
         </div>
 
         {/* Seller Information */}

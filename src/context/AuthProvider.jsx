@@ -29,6 +29,26 @@ const AuthProvider = ({children}) => {
         const unsubscribe = onAuthStateChanged(auth, (currentUser)=>{
             setUser(currentUser)
             setLoading(false)
+        if(currentUser){
+            const loggedUser = {email : currentUser.email}
+            fetch('http://localhost:5000/getToken',{
+                method:"POST",
+                headers:{
+                    'content-type':'application/json',
+                    'authorization': `Bearer ${currentUser.accessToken}`
+                },
+                body: JSON.stringify(loggedUser)
+            })
+            .then(res => res.json())
+            .then(data => {
+                localStorage.setItem('token', data.token)
+            })
+            .catch(err =>{
+                console.log(err)
+            })
+        }else{
+            localStorage.removeItem('token')
+        }
         })
         return()=>{
             unsubscribe()

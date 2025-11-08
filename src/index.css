@@ -11,12 +11,19 @@
   --color-bgcolor: #f3e8ff;
   --color-base-300: #d8b4fe;
 };
+.text-main {
+  background: linear-gradient(to bottom right, #632EE3, #9F62F2); /* or var(--color-primary) etc. */
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
 .primary-btn {
   background: linear-gradient(to bottom right, var(--color-purple-700), var(--color-purple-300));
   color: white;
   border: none;
   transition: all 0.2s ease-in-out;
   cursor: pointer;
+  font-weight: 600;
 }
 
 .primary-btn:hover {
@@ -30,6 +37,7 @@
   border: none;
   transition: all 0.2s ease-in-out;
   cursor: pointer;
+  font-weight: 600;
 }
 
 .secondary-btn:hover {
@@ -43,6 +51,7 @@
   color: var(--color-purple-700);
   transition: all 0.2s ease-in-out;
   cursor: pointer;
+  font-weight: 600;
 }
 .outlined-btn:hover {
   background: linear-gradient(to bottom right, var(--color-purple-300), var(--color-primary));
