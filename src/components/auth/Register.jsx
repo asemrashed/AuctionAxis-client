@@ -3,14 +3,16 @@ import { Link, useLocation, useNavigate } from "react-router";
 import { RiEyeCloseFill, RiEyeFill } from "react-icons/ri";
 import { FaGoogle } from "react-icons/fa";
 import { AuthContext } from "../../context/AuthContext";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
 
 const Register = () => {
-  const {user, loading, setLoading, userSignUp, userSignInWithGoogle} = use(AuthContext)
+  const { loading, setLoading, userSignUp, userSignInWithGoogle} = use(AuthContext)
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(false);
   const [showPass, setShowPass] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
+  const secureAxios = useAxiosSecure()
 
   const handleSignIn=(e)=>{
     e.preventDefault();
@@ -42,18 +44,10 @@ const Register = () => {
     .then(result=>{
         console.log(result.user)
         const newUser = result.user 
-        fetch('http://localhost:5000/users',{
-          method: "POST",
-          headers:{
-            "content-type": "application/json"
-          },
-          body: JSON.stringify(newUser)
+        secureAxios.post('http://localhost:5000/users',newUser)
+        .then(res => {
+          console.log('after saving the user', res.data)
         })
-        .then(res => res.json())
-        .then(data => {
-          console.log('after saving the user', data)
-        })
-        .catch(err => console.log(err))
         setError(false)
         setSuccess(true)
         navigate( location?.state || '/')
@@ -135,12 +129,12 @@ const Register = () => {
             type="submit"
             className="btn primary-btn hover:btn-secondary mt-4"
           >
-          {loading ? `Registering ${<span className="loading loading-spinner loading-xl"></span>}`:'Login'}
+          {loading ? `Registering ${<span className="loading loading-spinner loading-xl"></span>}`:'Register'}
           </button>
         </form>
          <button onClick={handleGoogleSignIn} className="btn hover:bg-blue-500 hover:text-white">
           <FaGoogle/> 
-          {loading ? `Registering ${<span className="loading loading-spinner loading-xl"></span>}`:'Login with Google'}
+          {loading ? `Registering ${<span className="loading loading-spinner loading-xl"></span>}`:'Sign in with Google'}
          </button>        
         <p className="text-center text-gray-500">
           Already have an account..!{" "}

@@ -39,7 +39,7 @@ const CreateProduct = () => {
         status: 'pending'
     }
     console.log(newProduct);
-    axiosSecure.post(`http://localhost:5000/products`, newProduct)
+    axiosSecure.post(`/products`, newProduct)
     .then(res =>{
         console.log(res.data)
         e.target.reset()

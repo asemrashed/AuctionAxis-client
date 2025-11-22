@@ -1,7 +1,6 @@
 import React, { use } from "react";
 import { Link, NavLink, useNavigate } from "react-router";
 import "./navbar.css";
-import logo from "../../assets/SmartDeals.png";
 import { AuthContext } from "../../context/AuthContext";
 
 const Navbar = () => {
@@ -77,7 +76,7 @@ const Navbar = () => {
             {navItems}
           </ul>
         </div>
-        <Link to={'/'}><img src={logo} alt="logo" className="w-35 md:w-50 cursor-pointer"/></Link>
+        <Link to={'/'} className="-mt-1 text-3xl md:text-4xl font-extrabold bg-gradient-to-br from-purple-700 to-purple-400 bg-clip-text text-transparent">AuctionAxis</Link>
       </div>
       <div className="navbar-center hidden md:flex">
         <ul id="nav" className="menu menu-horizontal px-1 flex gap-4">
@@ -97,7 +96,7 @@ const Navbar = () => {
       <ul
         tabIndex="-1"
         className="menu z-3 menu-sm dropdown-content bg-white rounded-b-md mt-3 w-45 p-2 shadow">
-        <li><Link to={'profile'} className="text-center text-primary text-base md:text-xl mb-2">{user.displayName}</Link></li>
+        <li><Link to={'my-profile'} className="text-center text-primary text-base md:text-xl mb-2">{user.displayName}</Link></li>
         <li>
           <button onClick={handleLogOut} className="btn btn-sm md:btn-md text-base font-semibold btn-warning px-6">
             Log out

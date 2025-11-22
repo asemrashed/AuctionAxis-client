@@ -14,7 +14,7 @@ const MyBids = () => {
   useEffect(() => {
     if (user) {
       const email = user.email;
-      // fetch(`http://localhost:5000/bids/?user_email=${email}`,{
+      // fetch(`${import.meta.env.VITE_API_LINK}/bids/?user_email=${email}`,{
       //   headers:{
       //     'authorization': `Bearer ${localStorage.getItem('token')}`
       //   }

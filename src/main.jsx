@@ -15,6 +15,7 @@ import CreateProduct from './pages/createProduct/CreateProduct.jsx'
 import AuthProvider from './context/AuthProvider'
 import PrivetRoute from './routes/PrivetRoute.jsx'
 import ProductDetailsPage from './pages/productDetails/ProductDetailsPage.jsx'
+import MyProfile from './pages/profile/MyProfile.jsx'
 
 const router = createBrowserRouter([
   {
@@ -23,17 +24,17 @@ const router = createBrowserRouter([
     children:[
       {
         index: true,
-        loader: () => fetch('http://localhost:5000/latest-product').then(res => res.json()),
+        loader: () => fetch(`${import.meta.env.VITE_API_LINK}/latest-product`).then(res => res.json()),
         Component: Home,
       },
       {
         path: "/products",
-        loader: () => fetch('http://localhost:5000/products').then(res=> res.json()),
+        loader: () => fetch(`${import.meta.env.VITE_API_LINK}/products`).then(res=> res.json()),
         Component: AllProduct
       },
       {
         path: '/products/:id',
-        loader: ({params}) => fetch(`http://localhost:5000/products/${params.id}`).then(res => res.json()),
+        loader: ({params}) => fetch(`${import.meta.env.VITE_API_LINK}/products/${params.id}`).then(res => res.json()),
         Component: ProductDetailsPage
       },
       {
@@ -47,6 +48,10 @@ const router = createBrowserRouter([
       {
         path: "/createProduct",
         element: <PrivetRoute> <CreateProduct/> </PrivetRoute>
+      },
+      {
+        path: "/my-profile",
+        element: <PrivetRoute> <MyProfile/> </PrivetRoute>
       }
     ]
   },

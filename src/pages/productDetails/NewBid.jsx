@@ -1,12 +1,14 @@
 import React, { use, useEffect,useState } from "react";
 import { AuthContext } from "../../context/AuthContext";
 import { BidContext } from "../../context/bidContext";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
 
 const NewBid = ({ modalRef}) => {
   const {product, bids, setBids} = use(BidContext)
   const { user, loading } = use(AuthContext);
   const { _id, price_min, price_max } = product;
   const [highestBid, setHighestBid]= useState(null)
+  const secureAxios = useAxiosSecure()
 
   useEffect(()=>{
     setHighestBid(bids?.[0]?.bid_price ?? null)
@@ -36,26 +38,16 @@ const NewBid = ({ modalRef}) => {
       buyer_image,
       status: 'pending'
     };
-    fetch("http://localhost:5000/bids", {
-      method: "POST",
-      headers: {
-        "content-type": "application/json",
-      },
-      body: JSON.stringify(currentBid),
-    })
-      .then(res => res.json())
-      .then(data => {
-        console.log("Bid placed successfull", data);
-        if(data.insertedId){
-          currentBid._id = data.insertedId
+    secureAxios.post("/bids", currentBid)
+      .then(res => {
+        // console.log("Bid placed successfull", res.data);
+        if(res.data.insertedId){
+          currentBid._id = res.data.insertedId
           setBids([...bids, currentBid])
           e.target.reset();
           modalRef.current.close();
         }
       })
-      .catch(err => {
-        console.log(err);
-      });
   };
 
   return (
@@ -115,7 +107,7 @@ const NewBid = ({ modalRef}) => {
             name="contact"
             type="number"
             className="input w-full mb-2"
-            defaultValue={user?.contact || '+880'}
+            defaultValue={user?.contact || +880}
             required
           />
 

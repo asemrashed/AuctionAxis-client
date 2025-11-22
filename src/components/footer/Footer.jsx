@@ -1,6 +1,5 @@
 import React from "react";
 import { TiSocialFacebook, TiSocialTwitter, TiSocialLinkedin } from "react-icons/ti";
-import logo from '../../assets/SmartDeals-for-dark.png';
 import { Link } from 'react-router';
 
 const Footer = () => {
@@ -9,9 +8,7 @@ const Footer = () => {
       <footer className="max-w-[1440px] mx-auto footer flex flex-col md:flex-row items-center md:items-start justify-between pb-5 md:pb-9 [&_h6]:text-white text-white/60 border-b border-[#E5E7EB] gap-2 md:gap-15">
         <aside className="flex-2 flex flex-col items-center md:items-start">
           {/* Logo as Link to home */}
-          <Link to="/">
-            <img src={logo} alt="logo" />
-          </Link>
+          <Link to={'/'} className="-mt-1 text-3xl md:text-4xl font-extrabold bg-gradient-to-br from-purple-700 to-purple-400 bg-clip-text text-transparent">AuctionAxis</Link>
           <p className="text-center md:text-left">
             Your trusted marketplace for authentic local products. Discover the best deals from across Bangladesh.
           </p>

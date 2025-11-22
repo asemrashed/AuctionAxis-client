@@ -3,6 +3,7 @@ import { Link, useLocation, useNavigate } from "react-router";
 import { RiEyeCloseFill, RiEyeFill } from "react-icons/ri";
 import { FaGoogle } from "react-icons/fa";
 import { AuthContext } from "../../context/AuthContext";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
 
 const Login = () => {
   const { userSignInWithGoogle, loading, setLoading, userSignIn} = use(AuthContext)
@@ -11,6 +12,7 @@ const Login = () => {
   const [success, setSuccess] = useState(false);
   const [showPass, setShowPass] = useState(false);
   const [error, setError] = useState(false)
+  const secureAxios = useAxiosSecure()
 
   const handleSignIn=(e)=>{
     e.preventDefault();
@@ -36,19 +38,10 @@ const Login = () => {
         // console.log(result.user)
         const newUser = result.user 
         const {displayName, email, photoURL} = newUser
-        fetch('http://localhost:5000/users',{
-          method: "POST",
-          headers:{
-            "content-type": "application/json"
-          },
-          body: JSON.stringify({displayName, email, photoURL})
+        secureAxios.post('/users',{displayName, email, photoURL})
+        .then(res => {
+          // console.log('after saving the user', res.data)
         })
-        .then(res => res.json())
-        .then(data => {
-          // console.log('after saving the user', data)
-        })
-        .catch(err => console.log(err))
-        
         setError(false)
         setSuccess(true)
         navigate( location?.state || '/')
