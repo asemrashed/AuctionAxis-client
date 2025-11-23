@@ -37,7 +37,6 @@ const AuthProvider = ({children}) => {
             }else{
                 setUser(null)
             }
-            console.log('current', currentUser)
             setLoading(false)
         if(currentUser){
             const loggedUser = {email : currentUser.email}

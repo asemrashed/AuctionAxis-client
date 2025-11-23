@@ -13,7 +13,7 @@ const CreateProduct = () => {
     const category = e.target.category.value
     const price_min = Number(e.target.min_price.value)
     const price_max = Number(e.target.max_price.value)
-    const radio = e.target.radio.value
+    const condition = e.target.radio.value
     const usage = e.target.time.value
     const image = e.target.product_img.value
     const description = e.target.description.value
@@ -27,7 +27,7 @@ const CreateProduct = () => {
         category, 
         price_min, 
         price_max, 
-        radio,
+        condition,
         usage, 
         image, 
         description,
@@ -41,7 +41,7 @@ const CreateProduct = () => {
     console.log(newProduct);
     axiosSecure.post(`/products`, newProduct)
     .then(res =>{
-        console.log(res.data)
+        // console.log(res.data)
         e.target.reset()
         navigate('/')
     })
