@@ -1,70 +1,79 @@
 import React, { use, useState } from "react";
-import { Link, useLocation, useNavigate } from "react-router";
+import { Link, Navigate, useLocation, useNavigate } from "react-router";
 import { RiEyeCloseFill, RiEyeFill } from "react-icons/ri";
 import { FaGoogle } from "react-icons/fa";
 import { AuthContext } from "../../context/AuthContext";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 
 const Register = () => {
-  const { loading, setLoading, userSignUp, userSignInWithGoogle} = use(AuthContext)
+  const { loading, setLoading, userSignUp, userSignInWithGoogle, user } =
+    use(AuthContext);
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(false);
   const [showPass, setShowPass] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
-  const secureAxios = useAxiosSecure()
+  const secureAxios = useAxiosSecure();
 
-  const handleSignIn=(e)=>{
+  
+  if(user){
+    return <Navigate to={'/'}/>
+  }
+
+  const handleSignIn = e => {
     e.preventDefault();
     const name = e.target.name.value;
     const imgUrl = e.target.imgUrl.value;
     const email = e.target.email.value;
     const password = e.target.password.value;
-    userSignUp({email, password})
+    userSignUp({ email, password })
       .then(result => {
         console.log(result.user);
         const newUser = result.user;
         newUser.displayName = name;
-        newUser.photoURL = imgUrl
-        console.log(newUser)
-        setSuccess(true)
-        setError(false)
-        navigate('/')
+        newUser.photoURL = imgUrl;
+        console.log(newUser);
+        setSuccess(true);
+        setError(false);
+        navigate("/");
       })
-      .catch(err =>{
-        console.log(err)
-        setError(err.message)
-        setLoading(false)
-      })
-  }
-  
-  const handleGoogleSignIn = (e)=>{
+      .catch(err => {
+        console.log(err);
+        setError(err.message);
+        setLoading(false);
+      });
+  };
+
+  const handleGoogleSignIn = e => {
     e.preventDefault();
     userSignInWithGoogle()
-    .then(result=>{
-        console.log(result.user)
-        const newUser = result.user 
-        secureAxios.post('http://localhost:5000/users',newUser)
-        .then(res => {
-          console.log('after saving the user', res.data)
-        })
-        setError(false)
-        setSuccess(true)
-        navigate( location?.state || '/')
-    })
-    .catch(err => {
-        console.log(err)
-        setError(err.message)
-        setLoading(false)
-    })
-  }
+      .then(result => {
+        console.log(result.user);
+        const newUser = result.user;
+        secureAxios.post("http://localhost:5000/users", newUser).then(res => {
+          console.log("after saving the user", res.data);
+        });
+        setError(false);
+        setSuccess(true);
+        navigate(location?.state || "/");
+      })
+      .catch(err => {
+        console.log(err);
+        setError(err.message);
+        setLoading(false);
+      });
+  };
 
   const togglePassVisibility = () => {
     setShowPass(!showPass);
   };
 
-  if(loading){
-    return <div className="text-2xl text-center">Loading <span className="loading loading-spinner loading-xl"></span></div>
+  if (loading) {
+    return (
+      <div className="text-2xl text-center">
+        Loading <span className="loading loading-spinner loading-xl"></span>
+      </div>
+    );
   }
 
   return (
@@ -129,17 +138,34 @@ const Register = () => {
             type="submit"
             className="btn primary-btn hover:btn-secondary mt-4"
           >
-          {loading ? `Registering ${<span className="loading loading-spinner loading-xl"></span>}`:'Register'}
+            {loading
+              ? `Registering ${(
+                  <span className="loading loading-spinner loading-xl"></span>
+                )}`
+              : "Register"}
           </button>
         </form>
-         <button onClick={handleGoogleSignIn} className="btn hover:bg-blue-500 hover:text-white">
-          <FaGoogle/> 
-          {loading ? `Registering ${<span className="loading loading-spinner loading-xl"></span>}`:'Sign in with Google'}
-         </button>        
+        <button
+          onClick={handleGoogleSignIn}
+          className="btn hover:bg-blue-500 hover:text-white"
+        >
+          <FaGoogle />
+          {loading
+            ? `Registering ${(
+                <span className="loading loading-spinner loading-xl"></span>
+              )}`
+            : "Sign in with Google"}
+        </button>
         <p className="text-center text-gray-500">
           Already have an account..!{" "}
           <Link to={"/auth/login"} className="text-primary">
             Login
+          </Link>
+        </p>
+        <p className="text-center text-gray-500">
+          Back to{" "}
+          <Link to={"/"} className="text-primary">
+            HOME
           </Link>
         </p>
       </div>

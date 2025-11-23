@@ -1,18 +1,22 @@
 import React, { use, useState } from "react";
-import { Link, useLocation, useNavigate } from "react-router";
+import { Link, Navigate, useLocation, useNavigate } from "react-router";
 import { RiEyeCloseFill, RiEyeFill } from "react-icons/ri";
 import { FaGoogle } from "react-icons/fa";
 import { AuthContext } from "../../context/AuthContext";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 
 const Login = () => {
-  const { userSignInWithGoogle, loading, setLoading, userSignIn} = use(AuthContext)
+  const { userSignInWithGoogle, loading, setLoading, userSignIn, user} = use(AuthContext)
   const location = useLocation();
   const navigate = useNavigate();
   const [success, setSuccess] = useState(false);
   const [showPass, setShowPass] = useState(false);
   const [error, setError] = useState(false)
   const secureAxios = useAxiosSecure()
+
+  if(user){
+    return <Navigate to={'/'}/>
+  }
 
   const handleSignIn=(e)=>{
     e.preventDefault();
@@ -115,6 +119,12 @@ const Login = () => {
           Not register yet..!{" "}
           <Link to={"/auth/register"} className="text-primary">
             Register
+          </Link>
+        </p>
+        <p className="text-center text-gray-500">
+          Back to {" "}
+          <Link to={"/"} className="text-primary">
+            HOME
           </Link>
         </p>
       </div>

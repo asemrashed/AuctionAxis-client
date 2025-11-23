@@ -1,3 +1,4 @@
+import { Link } from "react-router";
 import useAuth from "../../hooks/useAuth";
 
 const MyProfile = () => {
@@ -83,6 +84,10 @@ const MyProfile = () => {
               {edit? 'Cancel Edit':'Update Profile'}
             </button>
           </div> */}
+          <div className="flex flex-col gap-4 md:gap-6">
+            <Link to={'/myProducts'} className="primary-btn px-3 py-1 rounded-md">My Prodcuts</Link>
+            <Link to={'/myBids'} className="secondary-btn px-3 py-1 rounded-md">My Bids</Link>
+          </div>
         </div>
       </div>
     </div>
