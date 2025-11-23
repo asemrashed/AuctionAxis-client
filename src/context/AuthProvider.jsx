@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { AuthContext } from './AuthContext';
-import { createUserWithEmailAndPassword, GoogleAuthProvider, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut } from 'firebase/auth';
+import { createUserWithEmailAndPassword, GoogleAuthProvider, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile } from 'firebase/auth';
 import { auth } from '../firebase/firebase.init';
 
 const googleProvider = new GoogleAuthProvider();
@@ -15,6 +15,11 @@ const AuthProvider = ({children}) => {
         return createUserWithEmailAndPassword(auth, email, password)
     }
 
+    const updateUserInfo = ({userInfo})=>{
+        setLoading(true);
+        return updateProfile(auth.currentUser, userInfo)
+    }
+
     const userSignIn = ({email, password}) =>{
         setLoading(true);
         return signInWithEmailAndPassword(auth, email, password)
@@ -27,11 +32,16 @@ const AuthProvider = ({children}) => {
 
     useEffect(()=>{
         const unsubscribe = onAuthStateChanged(auth, (currentUser)=>{
-            setUser(currentUser)
+            if(currentUser){
+                setUser(currentUser)
+            }else{
+                setUser(null)
+            }
+            console.log('current', currentUser)
             setLoading(false)
         if(currentUser){
             const loggedUser = {email : currentUser.email}
-            fetch('http://localhost:5000/getToken',{
+            fetch(`${import.meta.env.VITE_API_LINK}/getToken`,{
                 method:"POST",
                 headers:{
                     'content-type':'application/json',
@@ -65,6 +75,7 @@ const AuthProvider = ({children}) => {
         loading,
         setLoading,
         userSignUp,
+        updateUserInfo,
         userSignIn,
         userSignInWithGoogle,
         userSignOut

@@ -17,7 +17,6 @@ const ProductDetailsPage = () => {
     if (user) {
       axios(`/bids/${product._id}`).then(res => {
         setBids(res.data);
-        console.log(res.data);
       });
     }
   }, [product._id, user, axios]);

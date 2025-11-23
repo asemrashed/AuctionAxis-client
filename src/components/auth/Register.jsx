@@ -6,7 +6,7 @@ import { AuthContext } from "../../context/AuthContext";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 
 const Register = () => {
-  const { loading, setLoading, userSignUp, userSignInWithGoogle, user } =
+  const { loading, setLoading, userSignUp, userSignInWithGoogle, user, updateUserInfo } =
     use(AuthContext);
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(false);
@@ -20,7 +20,7 @@ const Register = () => {
     return <Navigate to={'/'}/>
   }
 
-  const handleSignIn = e => {
+  const handleSignUp = e => {
     e.preventDefault();
     const name = e.target.name.value;
     const imgUrl = e.target.imgUrl.value;
@@ -32,10 +32,24 @@ const Register = () => {
         const newUser = result.user;
         newUser.displayName = name;
         newUser.photoURL = imgUrl;
-        console.log(newUser);
-        setSuccess(true);
-        setError(false);
-        navigate("/");
+        const userInfo = {
+          photoURL: imgUrl,
+          displayName: name
+        }
+        updateUserInfo({userInfo})
+        .then(res => console.log('profile info updated', res))
+        .catch(err => {
+          console.log(err)
+          setError(err.message)
+        })
+
+        secureAxios.post('/users', newUser)
+          .then(res =>{
+            console.log(res.data);
+            setSuccess(true);
+            setError(false);
+            navigate("/");
+        })
       })
       .catch(err => {
         console.log(err);
@@ -50,7 +64,7 @@ const Register = () => {
       .then(result => {
         console.log(result.user);
         const newUser = result.user;
-        secureAxios.post("http://localhost:5000/users", newUser).then(res => {
+        secureAxios.post("/users", newUser).then(res => {
           console.log("after saving the user", res.data);
         });
         setError(false);
@@ -90,7 +104,7 @@ const Register = () => {
         Register your account
       </h2>
       <div className="card-body">
-        <form onSubmit={handleSignIn} className="fieldset">
+        <form onSubmit={handleSignUp} className="fieldset">
           <label className="label font-semibold text-neutral-content">
             Name
           </label>

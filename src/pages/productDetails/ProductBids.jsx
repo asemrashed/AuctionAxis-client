@@ -13,7 +13,6 @@ const ProductBids = () => {
     );
   }
   const seller = product?.email === user?.email
-  console.log(bids)
   return (
     <div className="max-w-[1440px] mx-auto my-10">
       <h2 className="text-2xl md:text-4xl font-bold text-gray-900 mb-5">

@@ -89,14 +89,14 @@ const Navbar = () => {
       <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
         <div className="w-10 rounded-full">
           <img
-            alt={user.displayName}
+            alt={user?.displayName}
             src={user?.photoURL} />
         </div>
       </div>
       <ul
         tabIndex="-1"
         className="menu z-3 menu-sm dropdown-content bg-white rounded-b-md mt-3 w-45 p-2 shadow">
-        <li><Link to={'my-profile'} className="text-center text-primary text-base md:text-xl mb-2">{user.displayName}</Link></li>
+        <li><Link to={'my-profile'} className="text-center text-primary text-base md:text-xl mb-2">{user?.displayName}</Link></li>
         <li>
           <button onClick={handleLogOut} className="btn btn-sm md:btn-md text-base font-semibold btn-warning px-6">
             Log out
