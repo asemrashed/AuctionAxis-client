@@ -2,6 +2,7 @@ import React, { use } from "react";
 import { Link, NavLink, useNavigate } from "react-router";
 import "./navbar.css";
 import { AuthContext } from "../../context/AuthContext";
+import logo from '/auction-axis.png'
 
 const Navbar = () => {
   const navigate = useNavigate()
@@ -76,7 +77,10 @@ const Navbar = () => {
             {navItems}
           </ul>
         </div>
-        <Link to={'/'} className="-mt-1 text-3xl md:text-4xl font-extrabold bg-gradient-to-br from-purple-700 to-purple-400 bg-clip-text text-transparent">AuctionAxis</Link>
+        <div className="flex items-center gap-2">
+          <img src={logo} alt="logo" className="w-14"/>
+          <Link to={'/'} className="-mt-1 text-3xl md:text-4xl font-extrabold text-main">AuctionAxis</Link>
+        </div>
       </div>
       <div className="navbar-center hidden md:flex">
         <ul id="nav" className="menu menu-horizontal px-1 flex gap-4">

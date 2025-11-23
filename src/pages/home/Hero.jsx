@@ -13,24 +13,24 @@ export default function HeroSection() {
       <img
         src={leftVec}
         alt="Left vector"
-        className="absolute left-0 top-1/2 -translate-y-1/2 w-[280px] opacity-40 md:opacity-60 pointer-events-none select-none"
+        className="absolute left-0 top-1/2 -translate-y-1/2 w-[280px] opacity-40 md:opacity-70 pointer-events-none select-none"
       />
 
       {/* Right Vector */}
       <img
         src={rightVec}
         alt="Right vector"
-        className="absolute right-0 top-1/2 -translate-y-1/2 w-[280px] opacity-40 md:opacity-60 pointer-events-none select-none"
+        className="absolute right-0 top-1/2 -translate-y-1/2 w-[280px] opacity-40 md:opacity-70 pointer-events-none select-none"
       />
 
       <div className="relative z-2 text-center max-w-3xl mx-auto">
         <h1 className="font-extrabold text-4xl md:text-6xl leading-tight text-gray-900">
           Deal Your{' '}
-          <span className="bg-gradient-to-br from-purple-700 to-purple-400 bg-clip-text text-transparent">
+          <span className="text-main">
             Products
           </span>{' '}
           In A{' '}
-          <span className="bg-gradient-to-br from-purple-700 to-purple-400 bg-clip-text text-transparent">
+          <span className="text-main">
             Smart
           </span>{' '}
           Way!

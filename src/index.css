@@ -12,13 +12,13 @@
   --color-base-300: #d8b4fe;
 };
 .text-main {
-  background: linear-gradient(to bottom right, #632EE3, #9F62F2); /* or var(--color-primary) etc. */
+  background: linear-gradient(to bottom right, var(--color-primary), var(--color-purple-400)); /* or var(--color-primary) etc. */
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
 }
 .primary-btn {
-  background: linear-gradient(to bottom right, var(--color-purple-700), var(--color-purple-300));
+  background: linear-gradient(to bottom right, var(--color-primary), var(--color-purple-300));
   color: white;
   border: none;
   transition: all 0.2s ease-in-out;
@@ -32,7 +32,7 @@
   transform: translateY(-1px);
 }
 .secondary-btn {
-  background: linear-gradient(to bottom right, var(--color-purple-300), var(--color-purple-700));
+  background: linear-gradient(to bottom right, var(--color-purple-300), var(--color-primary));
   color: white;
   border: none;
   transition: all 0.2s ease-in-out;
@@ -41,7 +41,7 @@
 }
 
 .secondary-btn:hover {
-  background: linear-gradient(to bottom right, var(--color-purple-500), var(--color-primary));
+  background: linear-gradient(to bottom right, var(--color-purple-300), var(--color-primary));
   box-shadow: 0 8px 10px -3px var(--color-primary), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
   transform: translateY(-1px);
 }

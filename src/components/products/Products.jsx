@@ -8,7 +8,7 @@ const Products = ({products, heading}) => {
       <div className="max-w-[1440px] mx-auto">
         <h2 className="text-center text-2xl md:text-4xl font-bold mb-10 text-black">
           {heading}{" "}
-          <span className="bg-gradient-to-br from-purple-700 to-primary bg-clip-text text-transparent">
+          <span className="text-main">
             Products
           </span>
         </h2>

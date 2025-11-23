@@ -1,14 +1,18 @@
 import React from "react";
 import { TiSocialFacebook, TiSocialTwitter, TiSocialLinkedin } from "react-icons/ti";
 import { Link } from 'react-router';
+import logo from '/auction-axis.png'
 
 const Footer = () => {
   return (
-    <div className="max-w-[1600px] mx-auto bg-[#001931] text-white px-5 py-4 md:py-9">
-      <footer className="max-w-[1440px] mx-auto footer flex flex-col md:flex-row items-center md:items-start justify-between pb-5 md:pb-9 [&_h6]:text-white text-white/60 border-b border-[#E5E7EB] gap-2 md:gap-15">
+    <div className="max-w-[1600px] mx-auto bg-gradient-to-br from-[#c0e5f9] via-[#e8f2ff] to-[#e4cefa] text-gray-700 px-5 py-4 md:py-9">
+      <footer className="max-w-[1440px] mx-auto footer flex flex-col md:flex-row items-center md:items-start justify-between pb-5 md:pb-9 [&_h6]:text-primary [&_h6]:font-semibold text-black/70 border-b border-[#894fcc] gap-2 md:gap-15">
         <aside className="flex-2 flex flex-col items-center md:items-start">
           {/* Logo as Link to home */}
-          <Link to={'/'} className="-mt-1 text-3xl md:text-4xl font-extrabold bg-gradient-to-br from-purple-700 to-purple-400 bg-clip-text text-transparent">AuctionAxis</Link>
+          <div className="flex items-center gap-2">
+          <img src={logo} alt="logo" className="w-14"/>
+          <Link to={'/'} className="-mt-1 text-3xl md:text-4xl font-extrabold text-main">AuctionAxis</Link>
+        </div>
           <p className="text-center md:text-left">
             Your trusted marketplace for authentic local products. Discover the best deals from across Bangladesh.
           </p>
@@ -37,18 +41,18 @@ const Footer = () => {
           <h6 className="text-lg md:text-xl">Social Links</h6>
           <div className="grid grid-flow-col gap-4">
             <Link to="#">
-              <TiSocialTwitter className="bg-white rounded-full text-black text-2xl md:text-4xl"/>
+              <TiSocialTwitter className="bg-primary/40 rounded-full text-black text-2xl md:text-4xl"/>
             </Link>
             <Link to="#">
-              <TiSocialLinkedin className="bg-white rounded-full text-black text-2xl md:text-4xl"/>
+              <TiSocialLinkedin className="bg-primary/40 rounded-full text-black text-2xl md:text-4xl"/>
             </Link>
             <Link to="#">
-              <TiSocialFacebook className="bg-white rounded-full text-black text-2xl md:text-4xl"/>
+              <TiSocialFacebook className="bg-primary/40 rounded-full text-black text-2xl md:text-4xl"/>
             </Link>
           </div>
         </nav>
       </footer>
-      <div className="flex items-center justify-center text-sm pt-5 md:pt-9 text-gray-300">
+      <div className="flex items-center justify-center text-sm pt-5 md:pt-9 text-gray-600">
         © 2025 SmartDeals - All right reserved
       </div>
     </div>
