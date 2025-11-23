@@ -16,6 +16,7 @@ import PrivetRoute from './routes/PrivetRoute.jsx'
 import ProductDetailsPage from './pages/productDetails/ProductDetailsPage.jsx'
 import MyProfile from './pages/profile/MyProfile.jsx'
 import { ExportAxios } from './hooks/ExportAxios.js'
+import Error from './layouts/Error.jsx'
 
 const router = createBrowserRouter([
   {
@@ -68,6 +69,10 @@ const router = createBrowserRouter([
         Component: Register
       }
     ]
+  },
+  {
+    path:'*',
+    Component: Error
   }
 ])
 
