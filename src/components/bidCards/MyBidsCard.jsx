@@ -72,7 +72,7 @@ const MyBidsCard = ({ bid, bids, setBids, index }) => {
       {/* Row 2 - Product */}
       <div className="flex items-center gap-3 order-3 md:order-2">
         <div className="bg-gray-300 rounded-lg">
-          <img src={product.image} alt={product.title} className="w-10 h-10"/>
+          <img src={product.image} alt={product.title} className="w-10 h-8 object-cover"/>
         </div>
         <div>
           <Link to={`/products/${product._id}`} className="font-bold text-primary">{product.title}</Link>

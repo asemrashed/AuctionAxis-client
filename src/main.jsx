@@ -1,7 +1,6 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import './index.css'
-import App from './App.jsx'
 import { createBrowserRouter, RouterProvider } from 'react-router'
 import RootLayout from './layouts/RootLayout.jsx'
 import Home from './pages/home/Home.jsx'
@@ -16,6 +15,7 @@ import AuthProvider from './context/AuthProvider'
 import PrivetRoute from './routes/PrivetRoute.jsx'
 import ProductDetailsPage from './pages/productDetails/ProductDetailsPage.jsx'
 import MyProfile from './pages/profile/MyProfile.jsx'
+import { ExportAxios } from './hooks/ExportAxios.js'
 
 const router = createBrowserRouter([
   {
@@ -34,7 +34,7 @@ const router = createBrowserRouter([
       },
       {
         path: '/products/:id',
-        loader: ({params}) => fetch(`${import.meta.env.VITE_API_LINK}/products/${params.id}`).then(res => res.json()),
+        loader: ({params}) => ExportAxios.get(`${import.meta.env.VITE_API_LINK}/products/${params.id}`).then(res => res.data),
         Component: ProductDetailsPage
       },
       {

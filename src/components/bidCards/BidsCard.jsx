@@ -30,8 +30,8 @@ const BidsCard = ({ bid, index }) => {
 
       {/* Product */}
       <div className="flex items-center order-3 md:order-2 gap-3 mt-2 md:mt-0">
-        <div className="bg-gray-300 rounded-md">
-          <img src={product.image} alt={product.title} className="w-8 h-8" />
+        <div className="bg-gray-300 rounded-md w-10 h-8 ">
+          <img src={product.image} alt={product.title} className="h-full w-full object-cover" />
         </div>
         <div>
           <p className="font-semibold text-gray-800">{product.title}</p>

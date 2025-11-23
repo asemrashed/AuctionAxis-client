@@ -2,6 +2,7 @@ import React, { use } from 'react';
 import BidsCard from '../../components/bidCards/BidsCard';
 import { BidContext } from '../../context/bidContext';
 import useAuth from '../../hooks/useAuth';
+import { Link } from 'react-router';
 
 const ProductBids = () => {
   const {bids, product} = use(BidContext)
@@ -17,12 +18,15 @@ const ProductBids = () => {
     <div className="max-w-[1440px] mx-auto my-10">
       <h2 className="text-2xl md:text-4xl font-bold text-gray-900 mb-5">
         Bids For This Product:{" "}
-        <span className="text-purple-500">
+        {user && (
+          <span className="text-purple-500">
           {String(bids.length).padStart(2, "0")}
         </span>
+        )}
       </h2>
 
-      <div className="bg-white rounded-lg overflow-hidden w-full">
+      {user ? (
+        <div className="bg-white rounded-lg overflow-hidden w-full">
         {/* Header */}
         <div className={`hidden md:${bids.length>0? 'grid':'hidden'} ${seller? 'md:grid-cols-[60px_2fr_2fr_1fr_1.5fr]':'md:grid-cols-[60px_2fr_2fr_1fr]'} items-center px-4 py-3 bg-gray-100 font-semibold text-gray-600 text-sm`}>
           <span>SL No</span>
@@ -49,6 +53,9 @@ const ProductBids = () => {
           </p>
         )}
       </div>
+      ):(
+        <div>You have to login first to see others Bids. <Link to={'/auth/login'} className='text-purple-500 font-bold'> Login</Link></div>
+      )}
     </div>
   );
 };

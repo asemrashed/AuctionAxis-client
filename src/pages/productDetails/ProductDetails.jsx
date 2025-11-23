@@ -1,8 +1,10 @@
 import React, { useRef } from "react";
 import { Link } from "react-router";
 import NewBid from "./NewBid";
+import useAuth from "../../hooks/useAuth";
 
 export default function ProductDetails({ product }) {
+  const {user} = useAuth();
   const modalRef = useRef()
   const handleModalOpen=()=>{
     modalRef.current.showModal()
@@ -96,14 +98,15 @@ export default function ProductDetails({ product }) {
           <p className="text-gray-700 font-semibold md:text-base mb-2">
             <span className="font-bold">Product ID:</span> {product._id}
           </p>
-          {/* <p className="text-gray-700 font-semibold md:text-base">
+          <p className="text-gray-700 font-semibold md:text-base">
             <span className="font-bold">Posted:</span>{" "}
             {new Date(product.created_at).toLocaleDateString()}
-          </p> */}
+          </p>
         </div>
 
         {/* Seller Information */}
-        <div className="bg-white rounded-md p-6 flex flex-col justify-between">
+        {product.seller_name && (
+          <div className="bg-white rounded-md p-6 flex flex-col justify-between">
           <div className="flex flex-col gap-2">
             <h3 className="font-semibold text-xl md:text-2xl text-gray-900">
               Seller Information
@@ -112,13 +115,13 @@ export default function ProductDetails({ product }) {
               <img
                 src={product.seller_image}
                 alt={product.seller_name}
-                className="w-14 h-14 rounded-full object-cover border"
+                className={`${product.seller_image? '': 'blur-xs'} w-14 h-14 rounded-full object-cover border`}
               />
               <div>
                 <p className="font-semibold text-gray-900 text-lg">
                   {product.seller_name}
                 </p>
-                <p className="text-gray-600 text-sm">{product.email}</p>
+                <p className="text-gray-600 text-sm">{product.email || <span className="blur-xs"> abcdefg@gmail.com</span>}</p>
               </div>
             </div>
             <p className=" text-gray-600 text-sm md:text-base font-semibold">
@@ -126,7 +129,7 @@ export default function ProductDetails({ product }) {
             </p>
             <p className="text-gray-600 text-sm md:text-base font-semibold break-all">
               <span className="font-bold">Contact:</span>{" "}
-              {product.seller_contact}
+              {product.seller_contact || <span className="blur-xs"> +880 2343 24234</span>}
             </p>
             <p>
               <span className="font-bold text-gray-600">Status:</span>{" "}
@@ -144,12 +147,19 @@ export default function ProductDetails({ product }) {
             </p>
           </div>
         </div>
+        )}
         {/* Button */}
-        <button
+        {user ? (
+          <button
           onClick={handleModalOpen}
-          className={`${product.status === 'sold'? 'btn-disabled bg-gray-400 cursor-not-allowed' :'primary-btn'} w-full rounded-lg text-white py-3 text-center text-lg`}>
+          className={` ${product.status === 'sold'? 'btn-disabled bg-gray-400 cursor-not-allowed' :'primary-btn'} w-full rounded-lg text-white py-3 text-center text-lg`}>
           {product.status === 'sold'? 'Sold': 'Bid on This Product'}
         </button>
+        ):(
+          <Link to={'/auth/login'} className="btn btn-secondary">
+            Login to bid
+          </Link>
+        )}
         {/* Bid Modal */}
         <NewBid modalRef={modalRef}/>
       </div>

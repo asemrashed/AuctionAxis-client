@@ -5,7 +5,7 @@ const ProductCard = ({ product }) => {
   return (
     <div className="bg-white rounded-xl shadow-md p-4 border border-gray-200 flex flex-col justify-between gap-3 hover:-translate-y-1 duration-200">
       <div className="w-full h-60 bg-gray-200 rounded-md flex items-center justify-center">
-        <img src={product.image} alt={product.title} className="w-fit object-cover"/>
+        <img src={product.image} alt={product.title} className="w-full h-full rounded-lg object-cover"/>
       </div>
       <h3 className="text-lg md:text-xl lg:text-2xl font-semibold text-gray-800 line-clamp-2">
         {product.title}
