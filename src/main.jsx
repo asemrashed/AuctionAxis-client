@@ -25,8 +25,8 @@ const router = createBrowserRouter([
     children:[
       {
         index: true,
-        loader: () => fetch(`${import.meta.env.VITE_API_LINK}/latest-product`).then(res => res.json()),
         Component: Home,
+        loader: () => fetch(`${import.meta.env.VITE_API_LINK}/latest-product`).then(res => res.json()),
       },
       {
         path: "/products",
