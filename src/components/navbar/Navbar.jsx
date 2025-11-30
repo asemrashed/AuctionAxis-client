@@ -2,7 +2,7 @@ import React, { use } from "react";
 import { Link, NavLink, useNavigate } from "react-router";
 import "./navbar.css";
 import { AuthContext } from "../../context/AuthContext";
-import logo from '/auction-axis.png'
+// import logo from '/auction-axis.png'
 
 const Navbar = () => {
   const navigate = useNavigate()
@@ -78,7 +78,7 @@ const Navbar = () => {
           </ul>
         </div>
         <div className="flex items-center gap-2">
-          <img src={logo} alt="logo" className="w-14"/>
+          {/* <img src={logo} alt="logo" className="w-14"/> */}
           <Link to={'/'} className="-mt-1 text-3xl md:text-4xl font-extrabold text-main">AuctionAxis</Link>
         </div>
       </div>

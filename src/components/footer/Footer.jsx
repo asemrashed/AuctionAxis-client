@@ -1,7 +1,7 @@
 import React from "react";
 import { TiSocialFacebook, TiSocialTwitter, TiSocialLinkedin } from "react-icons/ti";
 import { Link } from 'react-router';
-import logo from '/auction-axis.png'
+// import logo from '/auction-axis.png'
 
 const Footer = () => {
   return (
@@ -10,7 +10,7 @@ const Footer = () => {
         <aside className="flex-2 flex flex-col items-center md:items-start">
           {/* Logo as Link to home */}
           <div className="flex items-center gap-2">
-          <img src={logo} alt="logo" className="w-14"/>
+          {/* <img src={logo} alt="logo" className="w-14"/> */}
           <Link to={'/'} className="-mt-1 text-3xl md:text-4xl font-extrabold text-main">AuctionAxis</Link>
         </div>
           <p className="text-center md:text-left">
