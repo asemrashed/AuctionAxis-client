@@ -1,7 +1,7 @@
 import React from "react";
 import { TiSocialFacebook, TiSocialTwitter, TiSocialLinkedin } from "react-icons/ti";
 import { Link } from 'react-router';
-import logo from '/auction-axis.png'
+import logo from '/auction-axis-logo.png'
 
 const Footer = () => {
   return (

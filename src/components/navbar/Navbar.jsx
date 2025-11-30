@@ -2,7 +2,7 @@ import React, { use } from "react";
 import { Link, NavLink, useNavigate } from "react-router";
 import "./navbar.css";
 import { AuthContext } from "../../context/AuthContext";
-import logo from '/auction-axis.png'
+import logo from '/auction-axis-logo.png'
 
 const Navbar = () => {
   const navigate = useNavigate()
